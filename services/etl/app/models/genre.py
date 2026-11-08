@@ -1,0 +1,14 @@
+from uuid import UUID
+
+from pydantic import BaseModel
+
+
+class Genre(BaseModel):
+    id: UUID
+    name: str
+
+
+class ElasticGenreDocumentModel(BaseModel):
+    index: str
+    id: UUID
+    source: Genre

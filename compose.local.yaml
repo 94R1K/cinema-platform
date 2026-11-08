@@ -1,0 +1,26 @@
+name: cinema-platform-local
+
+services:
+  content:
+    build:
+      target: development
+    volumes:
+      - ./services/content/app:/app
+
+  admin-panel:
+    build:
+      target: development
+    volumes:
+      - ./services/admin_panel/app:/app
+
+  postgres:
+    ports:
+      - "127.0.0.1:5432:5432"
+
+  redis:
+    ports:
+      - "127.0.0.1:6379:6379"
+
+  elasticsearch:
+    ports:
+      - "127.0.0.1:9200:9200"
