@@ -26,6 +26,9 @@ services:
       - "8000"
     env_file:
       - ./services/admin_panel/.env
+    volumes:
+      - admin_static:/var/www/static
+      - admin_media:/var/www/media
     depends_on:
       postgres:
         condition: service_healthy

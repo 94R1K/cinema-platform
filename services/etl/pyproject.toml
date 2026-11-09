@@ -2,11 +2,11 @@
 name = "etl"
 requires-python = ">=3.14,<3.15"
 dependencies = [
-    "psycopg[binary]==3.3.8",
     "elasticsearch==9.5.1",
-    "redis==8.1.0",
+    "psycopg[binary]==3.3.8",
     "pydantic==2.14.3",
     "pydantic-settings==2.16.2",
+    "redis==8.1.0",
 ]
 
 [dependency-groups]

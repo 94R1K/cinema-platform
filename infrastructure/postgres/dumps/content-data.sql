@@ -1,6 +1,6 @@
 -- Данные только для схемы content.
 -- Таблицы, ограничения, индексы и сама схема должны быть созданы приложением content заранее.
--- Загрузка через psql: psql -v ON_ERROR_STOP=1 -U <user> -d <database> -f content-data-only.sql
+-- Загрузка через psql: psql -v ON_ERROR_STOP=1 -U <user> -d <database> -f content-data.sql
 
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;

@@ -130,7 +130,7 @@ class FilmWork(UUIDMixin, CreatedMixin, ModifiedMixin):
         blank=True,
         null=True,
     )
-
+    
     genres = models.ManyToManyField(
         Genre,
         through="GenreFilmWork",
@@ -140,14 +140,14 @@ class FilmWork(UUIDMixin, CreatedMixin, ModifiedMixin):
         Person,
         through="PersonFilmWork",
     )
-
+    
     class Meta:
         managed = False
         db_table = '"content"."film_work"'
         verbose_name = _("film")
         verbose_name_plural = _("films")
         ordering = ("-creation_date",)
-
+    
     def __str__(self):
         return self.title
 

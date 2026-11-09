@@ -102,7 +102,6 @@ class FilmWorkAdmin(admin.ModelAdmin):
     )
     list_filter = ("type", "genres")
     search_fields = ("title", "description", "=id")
-
     readonly_fields = ("id", "created", "modified")
 
     fieldsets = (

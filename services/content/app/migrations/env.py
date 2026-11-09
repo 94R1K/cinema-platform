@@ -4,7 +4,7 @@ import sys
 from logging.config import fileConfig
 
 from alembic import context
-from sqlalchemy import pool
+from sqlalchemy import pool, text
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
 
@@ -43,6 +43,21 @@ if config.config_file_name is not None:
 # target_metadata = mymodel.Base.metadata
 target_metadata = Base.metadata
 
+
+managed_schemas = {
+    table.schema
+    for table in target_metadata.tables.values()
+    if table.schema is not None
+}
+
+
+def include_name(name, type_, parent_names):
+    if type_ == "schema":
+        # Разрешаем только схему public и те схемы, которые описаны в моделях
+        return name in managed_schemas or name == "public"
+
+    return True
+
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
 # my_important_option = config.get_main_option("my_important_option")
@@ -74,7 +89,20 @@ def run_migrations_offline() -> None:
 
 
 def do_run_migrations(connection: Connection) -> None:
-    context.configure(connection=connection, target_metadata=target_metadata)
+    # Используем текстовый SQL с немедленным исполнением для надежности
+    with connection.begin():
+        for schema_name in managed_schemas:
+            connection.execute(text(f"CREATE SCHEMA IF NOT EXISTS {schema_name}"))
+
+    # Настраиваем контекст Alembic
+    context.configure(
+        connection=connection,
+        target_metadata=target_metadata,
+        include_schemas=True,
+        include_name=include_name,
+        compare_type=True,
+        version_table_schema="public",
+    )
 
     with context.begin_transaction():
         context.run_migrations()

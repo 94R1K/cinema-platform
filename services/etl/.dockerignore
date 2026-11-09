@@ -5,3 +5,4 @@ __pycache__/
 .env
 .git/
 .ruff_cache/
+poetry.toml
