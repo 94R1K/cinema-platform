@@ -1,8 +1,5 @@
 [project]
-name = "tests"
-version = "0.1.0"
-description = ""
-authors = []
+name = "content-functional-tests"
 requires-python = ">=3.14"
 dependencies = [
     "aiohappyeyeballs==2.7.1",
@@ -40,8 +37,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
-    "flake8==7.3.0",
-    "isort==9.0.1",
+    "ruff==0.17.4",
 ]
 
 [tool.poetry]

@@ -4,11 +4,14 @@ from collections.abc import Awaitable, Callable
 from time import monotonic
 
 from aiohttp import ClientError, ClientSession
-from elastic_transport import ConnectionError as ElasticConnectionError
-from elastic_transport import ConnectionTimeout
+from elastic_transport import (
+    ConnectionError as ElasticConnectionError,
+    ConnectionTimeout,
+)
 from elasticsearch import AsyncElasticsearch
 from redis.asyncio import Redis
 from redis.exceptions import RedisError
+
 
 logger = logging.getLogger(__name__)
 

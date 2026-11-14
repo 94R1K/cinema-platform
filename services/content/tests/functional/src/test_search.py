@@ -6,7 +6,7 @@ from tests.core.settings import settings
 @pytest.mark.asyncio(loop_scope="session")
 async def test_film_search_by_title(client_session):
     """Тест поиска фильма по названию"""
-    
+
     url = settings.service_url + "/api/v1/films/search"
     params = {
         "query": "Эхо далеких планет"
@@ -24,7 +24,7 @@ async def test_film_search_by_title(client_session):
 @pytest.mark.asyncio(loop_scope="session")
 async def test_film_search_by_wrong_title(client_session):
     """Тест поиска фильма по несуществующему названию"""
-    
+
     url = settings.service_url + "/api/v1/films/search"
     params = {
         "query": "СуперФИЛЬМ"
@@ -40,7 +40,7 @@ async def test_film_search_by_wrong_title(client_session):
 @pytest.mark.asyncio(loop_scope="session")
 async def test_film_search_by_persons(client_session):
     """Тест поиска фильма по персоне"""
-    
+
     url = settings.service_url + "/api/v1/films/search"
     params = {
         "query": "Кристофер Нолан"
@@ -48,7 +48,7 @@ async def test_film_search_by_persons(client_session):
     async with client_session.get(url, params=params) as response:
         body = await response.json()
         status = response.status
-    
+
     film_names = ["Код бесконечности"]
 
     get_film_names = [film["title"] for film in body]
@@ -61,7 +61,7 @@ async def test_film_search_by_persons(client_session):
 @pytest.mark.asyncio(loop_scope="session")
 async def test_film_search_by_wrong_persons(client_session):
     """Тест поиска фильма по несуществующей персоне"""
-    
+
     url = settings.service_url + "/api/v1/films/search"
     params = {
         "query": "НесуществующийАвторСценаристАктерРежиссер"
@@ -77,7 +77,7 @@ async def test_film_search_by_wrong_persons(client_session):
 @pytest.mark.asyncio(loop_scope="session")
 async def test_film_search_by_description(client_session):
     """Тест поиска фильмов по описанию"""
-    
+
     url = settings.service_url + "/api/v1/films/search"
     params = {
         "query": "Ученый отправляется за горизонт событий"
@@ -94,7 +94,7 @@ async def test_film_search_by_description(client_session):
 @pytest.mark.asyncio(loop_scope="session")
 async def test_film_search_by_wrong_description(client_session):
     """Тест поиска фильмов по описанию фильма, которого нет в бд"""
-    
+
     url = settings.service_url + "/api/v1/films/search"
     params = {
         "query": "ТакогоФильмаЕщеНиктоНеВидел"
@@ -110,7 +110,7 @@ async def test_film_search_by_wrong_description(client_session):
 @pytest.mark.asyncio(loop_scope="session")
 async def test_person_search_by_part_of_full_name(client_session):
     """Тест поиска персоны по части имени"""
-    
+
     url = settings.service_url + "/api/v1/persons/search"
     params = {
         "query": "Нолан"
@@ -118,7 +118,7 @@ async def test_person_search_by_part_of_full_name(client_session):
     async with client_session.get(url, params=params) as response:
         body = await response.json()
         status = response.status
-    
+
     full_names = ["Кристофер Нолан", "Джонатан Нолан"]
     get_full_names = [person["full_name"] for person in body]
 
@@ -130,7 +130,7 @@ async def test_person_search_by_part_of_full_name(client_session):
 @pytest.mark.asyncio(loop_scope="session")
 async def test_person_search_by_full_name(client_session):
     """Тест поиска персоны по полному имени"""
-    
+
     url = settings.service_url + "/api/v1/persons/search"
     params = {
         "query": "Квентин Тарантино"
@@ -147,7 +147,7 @@ async def test_person_search_by_full_name(client_session):
 @pytest.mark.asyncio(loop_scope="session")
 async def test_person_search_by_wrong_full_name(client_session):
     """Тест поиска персоны по несуществующему имени"""
-    
+
     url = settings.service_url + "/api/v1/persons/search"
     params = {
         "query": "ТакогоИмениСовсемНет"

@@ -1,6 +1,6 @@
 FROM python:3.14.10-slim-trixie AS builder
 
-WORKDIR /app
+WORKDIR /src
 
 ARG POETRY_VERSION=2.5.1
 
@@ -19,7 +19,7 @@ RUN poetry install --only main --no-root --no-ansi
 
 FROM python:3.14.10-slim-trixie AS runtime
 
-WORKDIR /app
+WORKDIR /src
 
 ENV VIRTUAL_ENV=/opt/venv \
     PATH="/opt/venv/bin:${PATH}" \
@@ -28,16 +28,16 @@ ENV VIRTUAL_ENV=/opt/venv \
 
 COPY --from=builder /opt/venv /opt/venv
 
-COPY app/ ./
+COPY src/ ./
 
 EXPOSE 8000
 
 
 FROM runtime AS development
 
-CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["python", "-m", "uvicorn", "main:src", "--host", "0.0.0.0", "--port", "8000", "--reload"]
 
 
 FROM runtime AS production
 
-CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "-m", "uvicorn", "main:src", "--host", "0.0.0.0", "--port", "8000"]

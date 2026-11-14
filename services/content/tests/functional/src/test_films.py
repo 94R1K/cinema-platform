@@ -383,13 +383,13 @@ async def test_get_film_by_uuid(
     async with client_session.get(f"{URL_FILMS}/{film_id}/") as response:
         film = await response.json()
         status = response.status
-    
+
     assert status == expected_status
-    
+
     if status == 422:
         assert "detail" in film
         return
-    
+
     assert film == EXPECTED_FILM
 
 

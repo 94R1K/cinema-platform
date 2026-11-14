@@ -5,13 +5,13 @@ services:
     build:
       target: development
     volumes:
-      - ./services/content/app:/app
+      - ./services/content/src:/src
 
   admin-panel:
     build:
       target: development
     volumes:
-      - ./services/admin_panel/app:/app
+      - ./services/admin_panel/src:/src
 
   postgres:
     ports:

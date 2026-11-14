@@ -6,6 +6,7 @@ from pathlib import Path
 
 from elasticsearch import AsyncElasticsearch, NotFoundError
 
+
 logger = logging.getLogger(__name__)
 
 

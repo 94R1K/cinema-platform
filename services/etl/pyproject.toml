@@ -16,3 +16,79 @@ dev = [
 
 [tool.poetry]
 package-mode = false
+
+# ========================= RUFF =========================
+[tool.ruff]
+target-version = "py314"
+line-length = 88
+src = ["source"]
+
+# Исключаем генерируемые файлы и директории
+extend-exclude = [
+    "env",
+    ".git",          # Директория Git
+    "__pycache__",   # Кэшированные файлы Python
+    "venv",          # Виртуальное окружение
+    ".venv",         # Альтернативное название виртуального окружения
+    "env",           # Другой вариант виртуального окружения
+    "*.pyc",         # Скомпилированные файлы Python
+    "src/alembic/versions/*",
+]
+
+
+# ========================= LINT =========================
+[tool.ruff.lint]
+select = [
+    "A",       # flake8-builtins: переопределение встроенных имен
+    "B",       # flake8-bugbear: потенциальные ошибки
+    "C4",      # flake8-comprehensions: неоптимальные comprehensions
+    "C90",     # McCabe: цикломатическая сложность
+    "E",       # pycodestyle: ошибки стиля
+    "W",       # pycodestyle: предупреждения
+    "F",       # Pyflakes: ошибки и неиспользуемый код
+    "I",       # isort: сортировка импортов
+    "S",       # flake8-bandit: безопасность
+    "T10",     # flake8-debugger: отладочные вызовы
+    "T20",     # flake8-print: print()
+    "UP",      # pyupgrade: современный синтаксис Python
+    "ARG",     # flake8-unused-arguments: неиспользуемые аргументы
+    "RUF",     # Ruff-specific: дополнительные проверки Ruff
+    "SIM",     # flake8-simplify: упрощение кода
+    "PIE",     # flake8-pie: дополнительные проверки качества
+    "PTH",     # flake8-use-pathlib: использование pathlib
+    "RET",     # flake8-return: проверки return
+    "DTZ",     # flake8-datetimez: работа с datetime и timezone
+    "ASYNC",   # flake8-async: проверки асинхронного кода
+]
+
+# Исключения
+ignore = [
+    "RUF001",  # Неоднозначные символы в строках
+    "RUF002",  # Неоднозначные символы в docstring
+    "RUF003",  # Неоднозначные символы в комментариях
+    "E501",  # Превышение максимальной длины строки
+    "C901",  # Высокая цикломатическая сложность
+    "S608",  # Потенциально небезопасная работа с SQL
+    "S301",  # Использование pickle
+    "A002",  # Переопределение встроенного имени set
+    "S101",  # Использование assert
+    "DTZ",
+]
+
+# Индивидуальные исключения
+[tool.ruff.lint.per-file-ignores]
+# assert разрешен в тестах
+"src/tests/**" = ["ASYNC109", "S105", "S106", "S107"]
+"src/services/token.py" = ["S106"]
+"src/core/dto/tokens.py" = ["S105"]
+
+# ========================= ISORT =========================
+[tool.ruff.lint.isort]
+combine-as-imports = true
+lines-after-imports = 2
+
+# ========================= FORMAT =========================
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"

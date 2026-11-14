@@ -3,6 +3,7 @@ from uuid import UUID
 
 from tests.core.settings import settings
 
+
 PERSON_ID: Final[UUID] = UUID("4044446b-019a-4aa7-87c8-026ae32d76ef")
 FILM_ID: Final[UUID] = UUID("dce08875-e6ec-44af-ba8d-8a95d9e6202b")
 FILM_2_ID: Final[UUID] = UUID("0d971a9b-f4e8-492e-aad6-3f731961ff3c")

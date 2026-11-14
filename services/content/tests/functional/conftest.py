@@ -12,6 +12,7 @@ from .utils.wait_for_dependencies import (
     wait_for_redis_ready,
 )
 
+
 INDEXES = [
     settings.es_movies_index_name,
     settings.es_persons_index_name,
