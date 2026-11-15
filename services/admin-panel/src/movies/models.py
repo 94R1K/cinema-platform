@@ -1,4 +1,5 @@
 import uuid
+from typing import ClassVar
 
 from django.contrib.postgres.functions import TransactionNow
 from django.db import models
@@ -35,10 +36,8 @@ class ModifiedMixin(models.Model):
     class Meta:
         abstract = True
 
-    def save(self, *args, **kwargs):
-        is_update = not self._state.adding and not kwargs.get(
-            "force_insert", False
-        )
+    def save(self, *args, **kwargs) -> None:
+        is_update = not self._state.adding and not kwargs.get("force_insert", False)
 
         if is_update:
             update_fields = kwargs.get("update_fields")
@@ -55,6 +54,8 @@ class ModifiedMixin(models.Model):
 
         if is_update:
             self.refresh_from_db(fields=("modified",))
+
+        return None
 
 
 class FilmTypes(models.TextChoices):
@@ -168,13 +169,11 @@ class GenreFilmWork(UUIDMixin, CreatedMixin):
         db_table = '"content"."genre_film_work"'
         verbose_name = _("genre")
         verbose_name_plural = _("film genres")
-        constraints = [
+        constraints: ClassVar[list[models.BaseConstraint]] = [
             models.UniqueConstraint(
                 fields=("film_work", "genre"),
                 name="gfw_film_genre_uniq",
-                violation_error_message=_(
-                    "Этот жанр уже добавлен к данному фильму."
-                ),
+                violation_error_message=_("Этот жанр уже добавлен к данному фильму."),
             ),
         ]
 
@@ -204,7 +203,7 @@ class PersonFilmWork(UUIDMixin, CreatedMixin):
         db_table = '"content"."person_film_work"'
         verbose_name = _("person")
         verbose_name_plural = _("film persons")
-        constraints = [
+        constraints: ClassVar[list[models.BaseConstraint]] = [
             models.UniqueConstraint(
                 fields=("film_work", "person", "role"),
                 name="pfw_film_person_role_uniq",

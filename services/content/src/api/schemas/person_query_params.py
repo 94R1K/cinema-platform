@@ -32,10 +32,7 @@ class PersonQueryParams(PaginationParams):
 
             sort_by = ServicePersonSortField(sort_field)
 
-            if self.sort.startswith("-"):
-                sort_direction = "desc"
-            else:
-                sort_direction = "asc"
+            sort_direction = "desc" if self.sort.startswith("-") else "asc"
 
         return ServicePersonFilters(
             sort_by=sort_by,

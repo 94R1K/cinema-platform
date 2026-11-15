@@ -15,6 +15,7 @@ if TYPE_CHECKING:
         ElasticSearchPersonModel,
     )
 
+
 class FilmRepository(ABC):
     @abstractmethod
     async def get_films(
@@ -39,7 +40,9 @@ class FilmRepository(ABC):
 
 class GenreRepository(ABC):
     @abstractmethod
-    async def get_genres(self, filters: ElasticSearchGenreFilter) -> list[ElasticSearchGenreModel]:
+    async def get_genres(
+        self, filters: ElasticSearchGenreFilter
+    ) -> list[ElasticSearchGenreModel]:
         """Получить список жанров"""
 
     @abstractmethod
@@ -49,13 +52,19 @@ class GenreRepository(ABC):
 
 class PersonRepository(ABC):
     @abstractmethod
-    async def get_persons(self, filters: ElasticSearchPersonFilter) -> list[ElasticSearchPersonModel] | None:
+    async def get_persons(
+        self, filters: ElasticSearchPersonFilter
+    ) -> list[ElasticSearchPersonModel] | None:
         """Получить список персон"""
 
     @abstractmethod
-    async def get_person_by_uuid(self, person_uuid: UUID) -> ElasticSearchPersonModel | None:
+    async def get_person_by_uuid(
+        self, person_uuid: UUID
+    ) -> ElasticSearchPersonModel | None:
         """Получить информацию о персоне по идентификатору"""
 
     @abstractmethod
-    async def get_person_film_by_uuid(self, person_uuid: UUID) -> ElasticSearchPersonModel | None:
+    async def get_person_film_by_uuid(
+        self, person_uuid: UUID
+    ) -> ElasticSearchPersonModel | None:
         """Получить список фильмов по идентификатору персоны"""

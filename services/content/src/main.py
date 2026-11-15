@@ -7,20 +7,24 @@ from api.routers import (
     healthcheck_router,
     person_router,
 )
+from cache_storage import RedisStorage
 from core.config import settings
 from core.logger import LOGGING
-
-
-logging.config.dictConfig(LOGGING)
-from cache_storage import RedisStorage
 from elasticsearch import AsyncElasticsearch
 from fastapi import FastAPI
 from redis.asyncio import Redis
 
 
+logging.config.dictConfig(LOGGING)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    es = AsyncElasticsearch(hosts=[settings.elasticsearch_url, ])
+    es = AsyncElasticsearch(
+        hosts=[
+            settings.elasticsearch_url,
+        ]
+    )
 
     redis = Redis(
         host=settings.redis_host,
@@ -42,13 +46,13 @@ async def lifespan(app: FastAPI):
 tags_metadata = [
     {"name": "films", "description": "Получение информации о фильмах"},
     {"name": "genres", "description": "Получение информации о жанрах"},
-    {"name": "persons", "description": "Получение информации о персонале"}
+    {"name": "persons", "description": "Получение информации о персонале"},
 ]
 
 app = FastAPI(
     title=settings.project_name,
     description="""
-        API для клиентов онлайн-кинотеатра. Предоставляет возможность поиска 
+        API для клиентов онлайн-кинотеатра. Предоставляет возможность поиска
         фильмов, жанров, сценаристов, режисеров, актеров и др. персонала
     """,
     openapi_tags=tags_metadata,

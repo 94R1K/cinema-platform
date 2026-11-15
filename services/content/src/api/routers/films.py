@@ -23,11 +23,11 @@ film_router = APIRouter(
     "/films",
     response_model=list[FilmModel],
     summary="Получить список фильмов",
-    description="Возвращет список фильмов (uuid, рейтинг и название)",
+    description="Возвращает список фильмов (uuid, рейтинг и название)",
 )
 async def get_films(
     query_params: Annotated[FilmQueryParams, Query()],
-    service: FilmServiceABC = Depends(get_film_service),
+    service: Annotated[FilmServiceABC, Depends(get_film_service)],
 ):
     films = await service.get_films(query_params.film_query_params_to_filter())
 
@@ -45,11 +45,11 @@ async def get_films(
     "/films/{film_id}/",
     response_model=FilmDetailModel,
     summary="Получить фильм по uuid",
-    description="Возвращет фильм (uuid, рейтинг и название)",
+    description="Возвращает фильм (uuid, рейтинг и название)",
 )
 async def get_film(
     film_id: UUID,
-    service: FilmServiceABC = Depends(get_film_service),
+    service: Annotated[FilmServiceABC, Depends(get_film_service)],
 ):
     film = await service.get_film_by_id(film_id)
 
@@ -66,11 +66,11 @@ async def get_film(
     "/films/search",
     response_model=list[FilmModel],
     summary="Поиск по фильмам",
-    description="Возвращет список фильмов по заданным параметрам",
+    description="Возвращает список фильмов по заданным параметрам",
 )
 async def search_films(
     query_params: Annotated[FilmSearchQueryParams, Query()],
-    service: FilmServiceABC = Depends(get_film_service),
+    service: Annotated[FilmServiceABC, Depends(get_film_service)],
 ):
     films = await service.search_films(
         query_params.to_service_filters(),

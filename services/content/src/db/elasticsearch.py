@@ -14,7 +14,10 @@ from core.database.schemas import (
     ElasticSearchPersonFilter,
     ElasticSearchPersonModel,
 )
-from elastic_transport import ConnectionError, ConnectionTimeout
+from elastic_transport import (
+    ConnectionError as ElasticConnectionError,
+    ConnectionTimeout,
+)
 from elasticsearch import NotFoundError
 
 
@@ -31,7 +34,7 @@ class ElasticSearchDatabase(FilmRepository, GenreRepository, PersonRepository):
 
     @backoff.on_exception(
         backoff.expo,
-        (ConnectionError, ConnectionTimeout),
+        (ElasticConnectionError, ConnectionTimeout),
         max_tries=3,
         jitter=backoff.full_jitter,
     )
@@ -40,7 +43,7 @@ class ElasticSearchDatabase(FilmRepository, GenreRepository, PersonRepository):
 
     @backoff.on_exception(
         backoff.expo,
-        (ConnectionError, ConnectionTimeout),
+        (ElasticConnectionError, ConnectionTimeout),
         max_tries=3,
         jitter=backoff.full_jitter,
     )

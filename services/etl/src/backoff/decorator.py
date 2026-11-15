@@ -47,7 +47,7 @@ def backoff(
                                 reconnect_exc,
                             )
 
-                    jitter = random.uniform(0, sleep_time)
+                    jitter = random.uniform(0, sleep_time) # noqa: S311 — криптографическая стойкость не требуется
                     time.sleep(min(sleep_time + jitter, border_sleep_time))
 
                     sleep_time = min(

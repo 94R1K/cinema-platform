@@ -51,7 +51,7 @@ managed_schemas = {
 }
 
 
-def include_name(name, type_, parent_names):
+def include_name(name, type_, _parent_names):
     if type_ == "schema":
         # Разрешаем только схему public и те схемы, которые описаны в моделях
         return name in managed_schemas or name == "public"

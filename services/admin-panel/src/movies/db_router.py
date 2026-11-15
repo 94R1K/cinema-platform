@@ -3,19 +3,19 @@ class ContentDatabaseRouter:
     content_app_label = 'movies'
     content_database = 'content'
 
-    def db_for_read(self, model, **hints):
+    def db_for_read(self, model, **_hints):
         if model._meta.app_label == self.content_app_label:
             return self.content_database
 
         return None
 
-    def db_for_write(self, model, **hints):
+    def db_for_write(self, model, **_hints):
         if model._meta.app_label == self.content_app_label:
             return self.content_database
 
         return None
 
-    def allow_relation(self, obj1, obj2, **hints):
+    def allow_relation(self, obj1, obj2, **_hints):
         obj1_is_content = (
             obj1._meta.app_label == self.content_app_label
         )
@@ -35,8 +35,8 @@ class ContentDatabaseRouter:
         self,
         db,
         app_label,
-        model_name=None,
-        **hints,
+        _model_name=None,
+        **_hints,
     ):
         if app_label == self.content_app_label:
             return False

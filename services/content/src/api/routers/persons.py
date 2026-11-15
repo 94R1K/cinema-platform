@@ -24,8 +24,8 @@ person_router = APIRouter(
 @person_router.get(
     "/persons/search",
     response_model=list[PersonModel],
-    summary="Получить список перснон",
-    description="Возвращет список персон (список фильмов, полное имя и uuid)",
+    summary="Получить список персон",
+    description="Возвращает список персон (список фильмов, полное имя и uuid)",
 )
 async def get_persons(
     query_params: Annotated[PersonQueryParams, Query()],
@@ -33,17 +33,15 @@ async def get_persons(
 ):
     persons = await service.get_persons(query_params.person_query_params_to_filter())
 
-    return [
-        service_person_to_api(person)
-        for person in persons
-    ]
+    return [service_person_to_api(person) for person in persons]
 
 
 @person_router.get(
     "/person/{person_uuid}/",
     response_model=PersonModel,
     summary="Получить персону по uuid",
-    description="Возвращет данные по персоне (список фильмов, полное имя и uuid)",
+    description="Возвращает данные по персоне "
+                "(список фильмов, полное имя и uuid)",
 )
 async def get_person(
     person_uuid: UUID,
@@ -62,7 +60,8 @@ async def get_person(
     "/persons/{person_uuid}/films",
     response_model=list[FilmModel],
     summary="Получить список фильмов персоны по uuid",
-    description="Возвращет список фильмов персоны (название, идентификатор и рейтинг фильма)",
+    description="Возвращает список фильмов персоны "
+                "(название, идентификатор и рейтинг фильма)",
 )
 async def person_films_by_uuid(
     person_uuid: UUID,

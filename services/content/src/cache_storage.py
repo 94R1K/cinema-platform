@@ -23,8 +23,7 @@ class RedisStorage(CacheStorage):
 
     async def get(self, key: str) -> str | None:
         try:
-            value = await self.client.get(key)
-            return value
+            return await self.client.get(key)
         except RedisError:
             logger.warning(
                 "Redis cache read failed. "
@@ -34,9 +33,9 @@ class RedisStorage(CacheStorage):
                 exc_info=True,
             )
 
-    async def set(self, key: str, value: str, ex: int = 3600) -> None:
+    async def set(self, key: str, value: str, ex: int | None = None) -> None:
         try:
-            await self.client.set(key, value)
+            await self.client.set(key, value, ex=ex)
         except RedisError:
             logger.warning(
                 "Redis cache write failed. "

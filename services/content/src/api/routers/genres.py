@@ -24,7 +24,7 @@ genre_router = APIRouter(
     "/genres",
     response_model=list[GenreModel],
     summary="Получить список жанров",
-    description="Возвращет список жанров (название и uuid)",
+    description="Возвращает список жанров (название и uuid)",
 )
 async def get_genres(
     query_params: Annotated[GenreQueryParams, Query()],
@@ -45,7 +45,7 @@ async def get_genres(
     "/genres/{genre_uuid}",
     response_model=GenreModel,
     summary="Получить жанр по uuid",
-    description="Возвращет жанр (название и uuid)",
+    description="Возвращает жанр (название и uuid)",
 )
 async def genre_by_uuid(
     genre_uuid: UUID,
