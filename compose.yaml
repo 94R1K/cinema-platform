@@ -27,12 +27,12 @@ services:
     env_file:
       - ./services/admin_panel/.env
     volumes:
-      - admin_static:/var/www/static
-      - admin_media:/var/www/media
+      - admin-panel-static:/var/www/static
+      - admin-panel-media:/var/www/media
     depends_on:
       postgres:
         condition: service_healthy
-    restart: unless-stopped
+    restart: "unless-stopped"
 
   etl:
     build:
@@ -46,20 +46,20 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
-    restart: unless-stopped
+    restart: "unless-stopped"
 
   redis:
     image: redis:8.10.3
     expose:
       - "6379"
     volumes:
-      - redis_data:/data
+      - redis-data:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 3s
       retries: 10
-    restart: unless-stopped
+    restart: "unless-stopped"
 
   elasticsearch:
     build:
@@ -70,7 +70,7 @@ services:
       discovery.type: single-node
       xpack.security.enabled: "false"
     volumes:
-      - elasticsearch_data:/usr/share/elasticsearch/data
+      - elasticsearch-data:/usr/share/elasticsearch/data
     healthcheck:
       test:
         [
@@ -80,7 +80,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 20
-    restart: unless-stopped
+    restart: "unless-stopped"
 
   postgres:
     image: postgres:18.6-trixie
@@ -91,7 +91,7 @@ services:
     env_file:
       - ./infrastructure/postgres/.env
     volumes:
-      - postgres_data:/var/lib/postgresql
+      - postgres-data:/var/lib/postgresql
       - ./infrastructure/postgres/scripts:/scripts:ro
     healthcheck:
       test:
@@ -103,7 +103,7 @@ services:
       timeout: 5s
       retries: 10
       start_period: 10s
-    restart: unless-stopped
+    restart: "unless-stopped"
 
   nginx:
     image: nginx:1.31.8-trixie
@@ -113,16 +113,16 @@ services:
       - ./infrastructure/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./infrastructure/nginx/conf.d:/etc/nginx/conf.d:ro
       - ./infrastructure/nginx/routes:/etc/nginx/routes:ro
-      - admin_static:/var/www/static:ro
-      - admin_media:/var/www/media:ro
+      - admin-panel-static:/var/www/static:ro
+      - admin-panel-media:/var/www/media:ro
     depends_on:
       - admin-panel
       - content
-    restart: unless-stopped
+    restart: "unless-stopped"
 
 volumes:
-  redis_data:
-  elasticsearch_data:
-  postgres_data:
-  admin_static:
-  admin_media:
+  redis-data:
+  elasticsearch-data:
+  postgres-data:
+  admin-panel-static:
+  admin-panel-media:

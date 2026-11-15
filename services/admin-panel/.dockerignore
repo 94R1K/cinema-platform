@@ -5,7 +5,6 @@ __pycache__/
 .env
 .git/
 .ruff_cache/
-.envrc
 backend_static/
 backend_media/
 poetry.toml

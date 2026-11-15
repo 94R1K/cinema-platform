@@ -1,8 +1,32 @@
+# Virtual environments
 venv/
 .venv/
+**/venv/
+
+# Python cache
 __pycache__/
+**/__pycache__/
 *.py[cod]
-.env
-.git/
+**/*.py[cod]
+
+# Test and lint cache
 .pytest_cache/
+**/.pytest_cache/
 .ruff_cache/
+
+# Local configuration
+.env
+poetry.toml
+
+# Git
+.git/
+
+# Nested virtual environments
+**/.venv/
+
+# Local environment and Poetry configuration
+**/.env
+**/poetry.toml
+
+# Nested caches
+**/.ruff_cache/

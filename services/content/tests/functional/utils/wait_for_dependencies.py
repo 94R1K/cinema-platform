@@ -66,7 +66,7 @@ async def wait_for_api_ready(
 
     await _wait_for_ready(
         check=check,
-        service_name="API",
+        service_name="Content",
         exceptions=(ClientError, RuntimeError),
         timeout=timeout,
         interval=interval,
@@ -80,7 +80,7 @@ async def wait_for_elasticsearch_ready(
 ) -> None:
     await _wait_for_ready(
         check=es_client.ping,
-        service_name="Elasticsearch",
+        service_name="ElasticSearch",
         exceptions=(
             ElasticConnectionError,
             ConnectionTimeout,

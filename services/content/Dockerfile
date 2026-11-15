@@ -35,9 +35,9 @@ EXPOSE 8000
 
 FROM runtime AS development
 
-CMD ["python", "-m", "uvicorn", "main:src", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
 
 
 FROM runtime AS production
 
-CMD ["python", "-m", "uvicorn", "main:src", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
