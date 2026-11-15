@@ -20,12 +20,12 @@ services:
 
   admin-panel:
     build:
-      context: ./services/admin_panel
+      context: ./services/admin-panel
       target: production
     expose:
       - "8000"
     env_file:
-      - ./services/admin_panel/.env
+      - ./services/admin-panel/.env
     volumes:
       - admin-panel-static:/var/www/static
       - admin-panel-media:/var/www/media

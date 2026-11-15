@@ -11,7 +11,7 @@ services:
     build:
       target: development
     volumes:
-      - ./services/admin_panel/src:/src
+      - ./services/admin-panel/src:/src
 
   postgres:
     ports:
