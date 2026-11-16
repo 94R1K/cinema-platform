@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Literal
 
 from pydantic import Field, SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -19,6 +20,9 @@ class Settings(BaseSettings):
     # Название проекта
     project_name: str = Field(min_length=1)
 
+    jwt_algorithm: Literal["RS256"] = "RS256"
+    jwt_public_key_path: Path
+
     # PostgreSQL
     postgres_host: str = Field(min_length=1)
     postgres_port: int = Field(default=5432, ge=1, le=65535)
@@ -34,6 +38,10 @@ class Settings(BaseSettings):
     redis_host: str = Field(min_length=1)
     redis_port: int = Field(default=6379, ge=1, le=65535)
     redis_db: int = Field(default=0, ge=0)
+
+    @property
+    def jwt_public_key(self) -> str:
+        return self.jwt_public_key_path.read_text()
 
     @property
     def elasticsearch_url(self) -> str:

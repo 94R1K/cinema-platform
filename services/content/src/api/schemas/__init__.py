@@ -5,9 +5,11 @@ from .genre_query_params import GenreQueryParams
 from .genres import GenreModel
 from .person_query_params import PersonQueryParams
 from .persons import PersonFilms, PersonModel
+from .token import AccessTokenClaims
 
 
 __all__ = (
+    "AccessTokenClaims",
     "FilmDetailModel",
     "FilmModel",
     "FilmQueryParams",
@@ -16,5 +18,5 @@ __all__ = (
     "GenreQueryParams",
     "PersonFilms",
     "PersonModel",
-    "PersonQueryParams"
+    "PersonQueryParams",
 )

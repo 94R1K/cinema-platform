@@ -9,6 +9,10 @@ services:
       - "8000"
     env_file:
       - ./services/content/.env
+    environment:
+      JWT_PUBLIC_KEY_PATH: /run/secrets/jwt_public_key
+    secrets:
+      - jwt_public_key
     depends_on:
       postgres:
         condition: service_healthy
@@ -126,3 +130,7 @@ volumes:
   postgres-data:
   admin-panel-static:
   admin-panel-media:
+
+secrets:
+  jwt_public_key:
+    file: ./secrets/auth/jwt-public.pem
