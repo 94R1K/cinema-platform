@@ -3,7 +3,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-from ..dependencies import get_film_service
+from api.dependencies import get_film_service
+
 from ..mappers.films import service_film_to_api
 from ..schemas import FilmDetailModel, FilmModel, FilmQueryParams, FilmSearchQueryParams
 

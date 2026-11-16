@@ -3,7 +3,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-from ..dependencies import get_genre_service
+from api.dependencies import get_genre_service
+
 from ..schemas import GenreModel, GenreQueryParams
 
 
@@ -52,13 +53,12 @@ async def genre_by_uuid(
     service: Annotated[GenreServiceABC, Depends(get_genre_service)],
 ):
     if genre := await service.get_genre_by_uuid(genre_uuid):
-
         return GenreModel(
             uuid=genre.uuid,
             name=genre.name,
         )
 
     raise HTTPException(
-            status_code=404,
-            detail="Genre not found",
-        )
+        status_code=404,
+        detail="Genre not found",
+    )

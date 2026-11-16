@@ -7,6 +7,7 @@ dependencies = [
     "gunicorn==26.2.0",
     "psycopg[binary]==3.3.8",
     "python-dotenv==1.2.4",
+    "requests (>=2.34.2,<3.0.0)",
 ]
 
 [dependency-groups]
@@ -72,6 +73,7 @@ ignore = [
 "src/services/token.py" = ["S106"]
 "src/core/dto/tokens.py" = ["S105"]
 "src/config/settings/__init__.py" = ["F403"]
+"src/users/migrations/*" = ["E501", "RUF012"]
 
 # ========================= ISORT =========================
 [tool.ruff.lint.isort]

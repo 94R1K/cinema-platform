@@ -4,9 +4,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 
-BASE_DIR = Path(__file__).resolve().parents[2]
+BASE_DIR = Path(__file__).resolve().parents[3]
 
-load_dotenv(BASE_DIR.parent / "config" / ".env")
+load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.environ["SECRET_KEY"]
 

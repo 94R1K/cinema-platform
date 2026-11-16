@@ -3,7 +3,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 
-from ..dependencies import get_person_service
+from api.dependencies import get_person_service
+
 from ..mappers.persons import service_person_to_api
 from ..schemas import FilmModel, PersonModel, PersonQueryParams
 
@@ -40,8 +41,7 @@ async def get_persons(
     "/person/{person_uuid}/",
     response_model=PersonModel,
     summary="Получить персону по uuid",
-    description="Возвращает данные по персоне "
-                "(список фильмов, полное имя и uuid)",
+    description="Возвращает данные по персоне (список фильмов, полное имя и uuid)",
 )
 async def get_person(
     person_uuid: UUID,
@@ -61,7 +61,7 @@ async def get_person(
     response_model=list[FilmModel],
     summary="Получить список фильмов персоны по uuid",
     description="Возвращает список фильмов персоны "
-                "(название, идентификатор и рейтинг фильма)",
+    "(название, идентификатор и рейтинг фильма)",
 )
 async def person_films_by_uuid(
     person_uuid: UUID,

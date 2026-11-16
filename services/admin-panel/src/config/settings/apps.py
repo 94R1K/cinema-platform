@@ -1,4 +1,5 @@
 INSTALLED_APPS = [
+    # Django
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -6,5 +7,8 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "corsheaders",
-    "movies.apps.MoviesConfig",
+
+    # Project
+    "users.apps.UsersConfig",
+    "movies",
 ]
